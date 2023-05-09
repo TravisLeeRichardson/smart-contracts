@@ -15,12 +15,12 @@ contract tokenRaffle is VRFConsumerBaseV2 {
     //VRF
     VRFCoordinatorV2Interface COORDINATOR;
     // Sepolia coordinator
-    address vrfCoordinator = 0x8103B0A8A00be2DDC778e6e7eaa21791Cd364625;
-    bytes32 keyHash = 0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c;
-    uint32 callbackGasLimit = 2500000;
-    uint16 requestConfirmations = 3;
-    uint32 numWords =  1;
-    uint64 public s_subscriptionId;
+    address vrfCoordinator = 0x8103B0A8A00be2DDC778e6e7eaa21791Cd364625; //got from Chainlink documentation
+    bytes32 keyHash = 0x474e34a077df58807dbe9c96d3c009b23b3c6d0cce433e59bbf5b34f823bc56c;  //got from Chainlink documentation
+    uint32 callbackGasLimit = 2500000; //# received in a callback function
+    uint16 requestConfirmations = 3; //minimum of 3 blocks
+    uint32 numWords =  1;  
+    uint64 public s_subscriptionId; // for VRF //1860--I got this from https://vrf.chain.link/sepolia/1860
     uint256[] public s_randomWords;
     uint256 public s_requestId;
     address s_owner;
@@ -47,10 +47,10 @@ contract tokenRaffle is VRFConsumerBaseV2 {
         );
     }
 
-
+    // Takes a few minutes to fulfill.
     function fulfillRandomWords(uint256 requestId, uint256[] memory randomWords) internal override {
         s_randomWords = randomWords;
-        randomResult = s_randomWords[0] % maximum + 1;
+        randomResult = s_randomWords[0] % maximum + 1; //because we get a huge number of words back, this reduces the result.
         amountToken = randomResult * 100; //2 decimal places
         token.mint(s_owner, amountToken);
     }

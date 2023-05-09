@@ -1,10 +1,13 @@
 
 //Begin
+// https://www.youtube.com/watch?v=XRLiwtBODwU
+// https://pad.riseup.net/p/chainlink-defi
+//when i deployed, i needed to use the address of the token contract (token.sol) for deployment.
 
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol"; //chainlink feed
 
 interface TokenInterface {
     function mint(address account, uint256 amount) external;

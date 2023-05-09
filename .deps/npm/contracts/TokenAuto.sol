@@ -36,6 +36,8 @@ contract tokenAuto is AutomationCompatibleInterface {
         token.mint(to, amountToken);
         return true;
     } 
+    
+    //automation function
     function checkUpkeep(
         bytes calldata /* checkData */
     )
